@@ -212,6 +212,10 @@ section {
   z-index: 10;
 }
 
+#l-dropdown-trigger.active {
+  text-decoration: underline;
+}
+
 .l-dropdown-demo {
   background: rgba(0, 0, 0, 0.7);
   padding: 20px;

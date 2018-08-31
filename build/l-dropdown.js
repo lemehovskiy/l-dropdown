@@ -145,6 +145,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var self = this;
 
                 self.state.isOpen = false;
+                self.$element.trigger('hide.ld');
                 self.$element.removeClass('open');
             }
         }, {
@@ -153,6 +154,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var self = this;
 
                 self.state.isOpen = true;
+                self.$element.trigger('show.ld');
                 self.$element.addClass('open');
             }
         }, {
@@ -161,10 +163,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var self = this;
 
                 $(document).click(function (event) {
-                    if (!self.state.isOpen || $(event.target).closest(self.$trigger).length) return;
-                    if ($(event.target).closest(self.$element).length === 0) {
-                        self.close();
+                    if (!self.state.isOpen || $(event.target).closest(self.$trigger).length || $(event.target).closest(self.$element).length > 0) {
+                        return;
                     }
+                    self.close();
                 });
             }
         }]);
