@@ -15,12 +15,20 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.15);
   }
+}
 
+.content-wrap {
+  position: relative;
+  z-index: 10;
+}
 
-  .title {
-    font-size: 50px;
-    text-transform: uppercase;
-    font-weight: 600;
-    @include vw-font-size(600, 50);
+.l-dropdown-demo {
+  background: rgba(black, 0.7);
+  padding: 20px;
+  margin: auto;
+  max-width: 200px;
+
+  &.open {
+    background: rgba(red, .7);
   }
 }

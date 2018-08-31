@@ -8,18 +8,12 @@
 'use strict';
 
 (function ($) {
-
     class LDropdown {
-
         constructor(element, options) {
-
             let self = this;
             
             //extend by function call
             self.settings = $.extend(true, {
-               
-                test_property: false
-                
             }, options);
 
             self.$element = $(element);
@@ -28,15 +22,60 @@
             self.data_options = self.$element.data('l-dropdown');
             self.settings = $.extend(true, self.settings, self.data_options);
 
+            self.$trigger = $(self.settings.trigger);
+
+            self.state = {
+                isOpen: false
+            }
+
             self.init();
-            
         }
 
         init(){
             let self = this;
+
+            self.subscribeTrigger();
+            self.subscribeCloseByDocumentClick();
+        }
+
+        subscribeTrigger(){
+            let self = this;
+
+            self.$trigger.on('click', function(){
+                if (self.state.isOpen) {
+                    self.close();
+                }
+                else {
+                    self.open();
+                }
+            })
+        }
+
+        close(){
+            let self = this;
+
+            self.state.isOpen = false;
+            self.$element.removeClass('open');
+        }
+
+        open(){
+            let self = this;
+
+            self.state.isOpen = true;
+            self.$element.addClass('open');
+        }
+
+        subscribeCloseByDocumentClick(){
+            let self = this;
+
+            $(document).click(function(event) {
+                if (!self.state.isOpen || $(event.target).closest(self.$trigger).length) return;
+                if ($(event.target).closest(self.$element).length === 0) {
+                    self.close();
+                }
+            });
         }
     }
-
 
     $.fn.lDropdown = function() {
         let $this = this,
@@ -54,5 +93,4 @@
         }
         return $this;
     };
-
 })(jQuery);
